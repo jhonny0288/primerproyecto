@@ -5,6 +5,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
+    const [msgerror, setMsgerror] = useState('')
 
     const RegistrarUsuario = (e) =>{
         e.preventDefault()
@@ -19,12 +20,12 @@ const Login = () => {
 
                 if (error.code == 'auth/invalid-email')
                 {
-                    alert('formato de email incorrecto')   
+                    setMsgerror('formato de email incorrecto')   
                 }
 
                 if (error.code == 'auth/weak-password')
                 {
-                    alert('formato de contraseña incorrecto (Minimo 6 caracteres)')   
+                    setMsgerror('formato de contraseña incorrecto (Minimo 6 caracteres)')   
                 }
             });
         
@@ -56,6 +57,19 @@ const Login = () => {
                         type="submit">
                     </input>
                 </form>
+                
+                {
+                    msgerror != null ? 
+                    (
+                        <div>
+                            {msgerror}
+                        </div>
+                    )
+                    :
+                    (
+                        <div></div>
+                    )
+                }
             </div>
             <div className='col'></div>
         </div>
