@@ -5,30 +5,30 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const [msjerror, setMsjError] = useState('')
 
     const RegistrarUsuario = (e) =>{
         e.preventDefault()
-        try {
+        
             createUserWithEmailAndPassword(auth, email, pass)
-            .then( r=> alert('Usuario registrado'))            
-            setEmail('')
-            setPass('')
-        } 
-        catch (error) {
+            .then(()=>{
+                alert('Usuario creado exitosamente')
+                setEmail(null)
+                setPass(null)
+            })
+            .catch ((error) =>{
 
-            if (error.code == 'auth/invalid-email')
-            {
-                setMsjError('formato de email incorrecto')   
-            }
+                if (error.code == 'auth/invalid-email')
+                {
+                    alert('formato de email incorrecto')   
+                }
 
-            if (error.code == 'auth/weak-password')
-            {
-                setMsjError('formato de email incorrecto')   
-            }
-             
-        }
-    }
+                if (error.code == 'auth/weak-password')
+                {
+                    alert('formato de contraseña incorrecto (Minimo 6 caracteres)')   
+                }
+            });
+        
+    };
 
     return (
         <div className='row mt-5'>
@@ -42,6 +42,7 @@ const Login = () => {
                         className='form-control'
                         placeholder='Introduce el email'
                         type="email">
+                        
                     </input>
                     <input
                     onChange={(e)=>{setPass(e.target.value)}}
@@ -55,22 +56,8 @@ const Login = () => {
                         type="submit">
                     </input>
                 </form>
-                {
-                 msjerror != null ? 
-                (
-                    <div>
-                        {msjerror}
-                    </div>
-                ) 
-                :
-                 (
-                    <span></span>
-                 )
-                }
             </div>
-            <div className='col'>
-
-            </div>
+            <div className='col'></div>
         </div>
     )
 }
