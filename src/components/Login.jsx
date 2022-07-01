@@ -1,8 +1,10 @@
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
 import { auth, createUserWithEmailAndPassword } from '../firebaseconfig'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-
+    const historial = useNavigate() 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
     const [msgerror, setMsgerror] = useState('')
@@ -12,7 +14,7 @@ const Login = () => {
         
             createUserWithEmailAndPassword(auth, email, pass)
             .then(()=>{
-                alert('Usuario creado exitosamente')
+                {historial('/')}
                 setEmail(null)
                 setPass(null)
             })
@@ -30,6 +32,21 @@ const Login = () => {
             });
         
     };
+
+    const LoginUsuario = () =>{
+        signInWithEmailAndPassword(auth,email, pass)
+        .then((r)=>{            
+            //console.log(r)
+            {historial('/')}
+        })
+        .catch((error)=>{
+            if(error.code == 'auth/wrong-password')
+            {
+                setMsgerror('Usuario/Clave incorrecta.')
+            }
+            
+        })
+    }
 
     return (
         <div className='row mt-5'>
@@ -57,7 +74,11 @@ const Login = () => {
                         type="submit">
                     </input>
                 </form>
-                
+                <button
+                onClick={LoginUsuario}
+                    className='btn btn-success w-100 mt-2'>
+                        Iniciar sesion
+                </button>                
                 {
                     msgerror != null ? 
                     (

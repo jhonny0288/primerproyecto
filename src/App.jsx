@@ -16,8 +16,8 @@ function App() {
       <BrowserRouter>
         <NavBar></NavBar>
         <Routes>
-          {/* <Route exact path='/' element={<Inicio></Inicio>}></Route>
-          <Route exact path='/contacto' element={<Contacto></Contacto>}></Route>
+          { <Route exact path='/' element={<Inicio></Inicio>}></Route>
+          /*<Route exact path='/contacto' element={<Contacto></Contacto>}></Route>
           <Route exact path='/Usuarios' element={<Usuarios></Usuarios>}></Route>
           <Route exact path='/Usuario/:id' element={<Usuario></Usuario>}></Route> */}
           <Route exact path='/Admin' element={<Admin></Admin>}></Route>
